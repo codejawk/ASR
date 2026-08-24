@@ -26,7 +26,10 @@ m.num_params(),'params')"
 echo "== 5. v2 components (mamba encoder / hypernet KWS / flash-paged MoE) =="
 python tests/test_v2_components.py
 
-echo "== 6. int4-mixed budget (mamba Model 1) =="
+echo "== 6. v3 (distillation CTC-KD + intent/slot SLU) =="
+python tests/test_v3_distill_slu.py
+
+echo "== 7. int4-mixed budget (mamba Model 1) =="
 python -m edge_asr.tools.count_params configs/model1_mamba.yaml 500 | tail -4
 
 echo "ALL GREEN"

@@ -56,6 +56,7 @@ class Transducer(nn.Module):
         feat_lens: torch.Tensor,
         targets: torch.Tensor,
         target_lens: torch.Tensor,
+        return_features: bool = False,
     ) -> dict:
         enc = self.encoder(feats)  # (B, T', D)
         enc_lens = torch.clamp(
@@ -71,13 +72,19 @@ class Transducer(nn.Module):
         rnnt = rnnt_loss(logits, targets.int(), enc_lens.int(), target_lens.int(), blank)
 
         # ---- aux CTC branch
-        ctc_logp = F.log_softmax(self.ctc_head(enc), dim=-1).transpose(0, 1)  # (T, B, V)
+        ctc_logits = self.ctc_head(enc)  # (B, T, V) raw
+        ctc_logp = F.log_softmax(ctc_logits, dim=-1).transpose(0, 1)  # (T, B, V)
         ctc = F.ctc_loss(
             ctc_logp, targets, enc_lens, target_lens, blank=blank, zero_infinity=True
         )
 
         loss = rnnt + self.cfg.ctc_loss_scale * ctc
-        return {"loss": loss, "rnnt": rnnt.detach(), "ctc": ctc.detach()}
+        out = {"loss": loss, "rnnt": rnnt.detach(), "ctc": ctc.detach()}
+        if return_features:
+            out["enc"] = enc              # (B, T, D)  encoder features (for feature-KD)
+            out["ctc_logits"] = ctc_logits  # (B, T, V) raw logits (for CTC-KD)
+            out["enc_lens"] = enc_lens
+        return out
 
     # ------------------------------------------------------------- streaming
     def init_state(self, batch: int = 1, device="cpu"):
