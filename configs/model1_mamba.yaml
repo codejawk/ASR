@@ -1,0 +1,29 @@
+# Model 1 — general streaming ASR with an SSM / Mamba encoder.
+# The competition "frontier" encoder: O(1) recurrent state per frame (no
+# growing KV cache), so streaming memory/compute is constant — battery-
+# friendly for always-on wrist ASR. See docs/COMPETITION_PITCH.md.
+#
+# Refs: Samba-ASR (arXiv:2501.02832), Mamba for Streaming ASR (2410.00070).
+
+blank: 0
+decoder_dim: 256
+joiner_dim: 256
+context: 2
+ctc_loss_scale: 0.2
+
+encoder:
+  encoder_type: mamba
+  input_dim: 80
+  d_model: 256
+  n_layers: 14        # SSM blocks are cheaper/param than Conformer -> more depth
+  d_state: 16
+  d_conv: 4
+  expand: 2
+  subsampling_factor: 4
+  chunk_frames: 32
+  dropout: 0.1
+
+# Deployment caveat: Mamba's selective-scan op may not yet be supported on
+# the Wear-Elite QNN/HTP backend. Ship the Conformer/Zipformer baseline
+# (configs/model1_general.yaml) and present Mamba as the research arm with an
+# honest op-support note. See docs/DEPLOYMENT_SW6100.md.

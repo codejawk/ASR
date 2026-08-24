@@ -1,0 +1,34 @@
+# Data sources. See docs/DATA_LICENSING.md before writing training code —
+# GigaSpeech is NOT commercially usable. Loquacious is the drop-in clean set.
+
+sample_rate: 16000
+
+train_corpora:
+  # name         hours   license            usable_commercially
+  - {name: loquacious,   hours: 25000, license: "commercial-ok",  use: true}
+  - {name: mls_en,       hours: 44000, license: "CC-BY",          use: true}
+  - {name: common_voice, hours: 26000, license: "CC0",            use: true}   # accent metadata
+  - {name: yodas_en,     hours: 370000,license: "CC (pseudo)",    use: true}   # treat as unlabeled
+  - {name: gigaspeech,   hours: 10000, license: "NON-COMMERCIAL", use: false}  # DO NOT TRAIN
+
+eval_sets:
+  - {name: librispeech_test_clean, purpose: benchmark_only}
+  - {name: librispeech_test_other, purpose: benchmark_only}
+  - {name: wrist_eval,             purpose: ship_gate}  # build this yourself, on-device mic
+
+# On-device recordings — the highest-value data you can add. See ROADMAP.md.
+wrist_conditions:
+  positions: [wrist_distance, held_to_mouth, arm_down]
+  noise: [street, cafe, gym, in_car, wind]
+  domain: [command_grammar, dictation, contact_names, numbers, dates]
+
+augmentation:
+  musan_noise_dir: null      # point at MUSAN when available
+  rir_dir: null              # point at a RIR corpus for reverberation
+  snr_db_range: [5, 20]
+  specaugment: true
+
+pseudo_label:
+  teacher: "nvidia/parakeet-tdt-0.6b-v3"   # or nemotron streaming 0.6b
+  confidence_filter: 0.5
+  dual_teacher_disagreement_drop: true

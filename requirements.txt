@@ -1,0 +1,16 @@
+# Core (required to run the whole train -> decode -> export pipeline)
+torch>=2.1
+numpy>=1.24
+pyyaml>=6.0
+sentencepiece>=0.1.99
+
+# Export / quantization / on-device inference
+onnx>=1.15            # needed by torch.onnx.export
+onnxruntime>=1.17     # int8 quantization + CPU/QNN inference
+
+# Optional but recommended for real (multi-thousand-hour) training:
+#   torchaudio         -> fast CUDA rnnt_loss (falls back to pure-torch if absent)
+#   datasets           -> HuggingFace corpora (Loquacious, Common Voice, MLS)
+#   nemo_toolkit[asr]  -> teacher models for pseudo-labelling (Parakeet/Nemotron)
+#   k2 / icefall       -> production Zipformer transducer recipe
+#   pytest             -> run the test suite

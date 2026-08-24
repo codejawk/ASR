@@ -1,0 +1,42 @@
+# Model 2 — command / keyword classifier (closed-set BC-ResNet)
+# Target: <1 MB int8, always-on eNPU workload.
+# For a runtime-extensible command set use the phoneme-CTC + FST path
+# instead (edge_asr/decode/keyword_ctc.py) and budget ~1.5 MB.
+
+classes:
+  - silence
+  - unknown
+  - wake          # "hey watch" style wake word -> gate Model 1
+  - call
+  - message
+  - timer
+  - music
+  - stop
+  - answer
+  - cancel
+  - weather
+  - maps
+
+bcresnet:
+  n_mels: 40
+  num_classes: 12     # must equal len(classes)
+  base_channels: 32
+  width_mult: 1.0
+
+# Redesigned Model 2 (open-vocab hypernetwork KWS + router + speaker).
+# Scale embed_dim / enc_channels / kw_hidden to spend the 5 MB budget on
+# robustness. This is the "use the 5 MB wisely" path (docs/COMPETITION_PITCH.md).
+command_model:
+  n_mels: 40
+  embed_dim: 192
+  enc_channels: 96
+  kw_hidden: 192
+  num_domains: 4       # comms / media / info / control -> Model-1 experts
+  num_langs: 1
+  speaker_dim: 64
+# NOTE: this reference block keeps channel width constant, so it lands at a
+# few tens of K params (< 0.05 MB int8). A production BC-ResNet-8 expands
+# channels per stage (16->24->32->40) and lands ~320 K params (~0.3 MB int8)
+# — still far under the 5 MB budget, which is the point: Model 2 is the easy
+# one. If you need runtime-extensible commands, switch to phoneme-CTC + FST
+# and budget ~1.5 MB (see docs/ARCHITECTURE.md Part 4).

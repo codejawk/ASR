@@ -1,0 +1,33 @@
+# Model 1 — general streaming ASR
+# Target: ~13 MB int8 (encoder is ~85% of the budget).
+# These knobs mirror the icefall streaming-Zipformer recipe so the config
+# transfers when you swap StreamingConformerEncoder -> Zipformer.
+#
+# Param sanity check: run `python -m edge_asr.tools.count_params configs/model1_general.yaml`
+# (or read the [params] line printed at train start) BEFORE committing GPU-weeks.
+
+blank: 0
+decoder_dim: 256      # stateless predictor embedding
+joiner_dim: 256       # keep small: vocab projection is paid twice
+context: 2            # stateless decoder context (last 2 tokens)
+ctc_loss_scale: 0.2   # aux CTC head weight
+
+encoder:
+  input_dim: 80         # 80-dim log-mel
+  d_model: 224          # tuned so total params ~= 11 M (int8 ~11 MB, under 13 MB budget)
+  n_layers: 11
+  n_heads: 4
+  ff_dim: 512
+  conv_kernel: 15
+  subsampling_factor: 4     # 100 Hz -> 25 Hz
+  chunk_frames: 32          # 320 ms acoustic chunk (pre-subsampling frames)
+  left_context_chunks: 4    # attention memory horizon
+  dropout: 0.1
+
+# --- production scaling notes (not read by code) ---
+# For the real ~13 M encoder with a Zipformer, scale as:
+#   --num-encoder-layers   "2,2,2,2,2,2"
+#   --downsampling-factor  "1,2,4,8,4,2"
+#   --encoder-dim          "128,160,224,288,224,160"
+#   --feedforward-dim      "384,512,640,768,640,512"
+# BPE vocab 500. Multi-latency chunk training: "16,32,64".

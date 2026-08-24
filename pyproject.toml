@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edge-asr"
+version = "0.1.0"
+description = "Two small streaming ASR models for wrist-class edge devices (Snapdragon Wear Elite / SW6100)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.1",
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+    "sentencepiece>=0.1.99",
+]
+
+[project.optional-dependencies]
+export = ["onnx>=1.15", "onnxruntime>=1.17"]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["edge_asr*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
