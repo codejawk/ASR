@@ -66,15 +66,14 @@ class NoiseInjection:
                 data = data.repeat(reps)
             start = random.randint(0, data.numel() - n)
             return data[start : start + n].to(device)
-        # fallback: coloured noise
+        # fallback: coloured noise (vectorized low-pass — no per-sample loop,
+        # which would be far too slow on real-length audio)
         white = torch.randn(n, device=device)
-        # simple 1-pole lowpass to make it less white/harsh
-        out = torch.empty_like(white)
-        a = 0.9
-        prev = 0.0
-        for i in range(n):
-            prev = a * prev + (1 - a) * white[i]
-            out[i] = prev
+        k = 8
+        kernel = torch.ones(1, 1, k, device=device) / k
+        out = torch.nn.functional.conv1d(
+            white.view(1, 1, -1), kernel, padding=k // 2
+        ).view(-1)[:n]
         return out
 
     def __call__(self, wav: torch.Tensor) -> torch.Tensor:
