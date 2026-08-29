@@ -59,9 +59,13 @@ class Transducer(nn.Module):
         return_features: bool = False,
     ) -> dict:
         enc = self.encoder(feats)  # (B, T', D)
-        enc_lens = torch.clamp(
-            (feat_lens // self.cfg.encoder.subsampling_factor), max=enc.size(1)
-        )
+        # EXACT subsampled length. The two stride-2, kernel-3, pad-1 convs in
+        # Conv2dSubsampling map an input of length L to ((L+1)//2 + 1)//2.
+        # A crude feat_lens//4 mismatches the encoder's real output length and
+        # makes torchaudio's CUDA RNN-T kernel throw "input length mismatch".
+        l = (feat_lens + 1) // 2
+        l = (l + 1) // 2
+        enc_lens = torch.clamp(l, max=enc.size(1))
 
         # ---- transducer branch
         blank = self.cfg.blank
