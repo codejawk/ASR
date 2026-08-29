@@ -9,3 +9,8 @@ data/*.jsonl
 *.vocab
 .venv/
 .DS_Store
+
+# demo / test audio artifacts
+*.wav
+*.aiff
+*.m4a
