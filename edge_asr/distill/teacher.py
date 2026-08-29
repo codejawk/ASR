@@ -29,13 +29,19 @@ class Teacher:
         for p in self.model.parameters():
             p.requires_grad_(False)
 
+    @property
+    def device(self):
+        return next(self.model.parameters()).device
+
     @torch.no_grad()
     def transcribe(self, feats: torch.Tensor) -> str:
         """Pseudo-label a single utterance (T, C) -> text."""
-        return self.tok.decode(greedy_search(self.model, feats))
+        return self.tok.decode(greedy_search(self.model, feats.to(self.device)))
 
     @torch.no_grad()
     def soft_targets(self, feats, feat_lens, targets, target_lens):
         """Return teacher CTC logits + encoder features for frame-KD."""
-        out = self.model(feats, feat_lens, targets, target_lens, return_features=True)
+        d = self.device
+        out = self.model(feats.to(d), feat_lens.to(d), targets.to(d), target_lens.to(d),
+                         return_features=True)
         return {"ctc_logits": out["ctc_logits"], "enc": out["enc"], "enc_lens": out["enc_lens"]}

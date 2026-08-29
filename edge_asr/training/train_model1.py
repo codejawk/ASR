@@ -29,7 +29,7 @@ from ..data import (
 from ..decode import greedy_search
 from ..eval import wer
 from ..features import LogMelFrontend, OnlineCMVN
-from .utils import build_model1, configure_optimizer, load_config, set_seed
+from .utils import build_model1, configure_optimizer, load_config, pick_device, set_seed
 
 
 def main():
@@ -41,11 +41,13 @@ def main():
     ap.add_argument("--batch-size", type=int, default=8)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--noise-dir", default=None)
+    ap.add_argument("--device", default="cpu", help="cpu | cuda | mps | auto")
     ap.add_argument("--out", default="runs/model1")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
     set_seed(args.seed)
+    device = pick_device(args.device)
     os.makedirs(args.out, exist_ok=True)
     cfg = load_config(args.config)
 
@@ -65,8 +67,9 @@ def main():
     )
     dl = DataLoader(ds, batch_size=args.batch_size, shuffle=True, collate_fn=collate_asr)
 
-    model = build_model1(cfg, tok.vocab_size)
-    print("[params]", model.num_params(), "| encoder:", cfg["encoder"].get("encoder_type", "conformer"))
+    model = build_model1(cfg, tok.vocab_size).to(device)
+    print("[params]", model.num_params(), "| encoder:", cfg["encoder"].get("encoder_type", "conformer"),
+          "| device:", device)
     opt = configure_optimizer(model, lr=args.lr, weight_decay=1e-2)
 
     model.train()
@@ -78,6 +81,8 @@ def main():
         except StopIteration:
             it = iter(dl)
             continue
+        feats, flen, toks, tlen = (feats.to(device), flen.to(device),
+                                   toks.to(device), tlen.to(device))
         out = model(feats, flen, toks, tlen)
         opt.zero_grad()
         out["loss"].backward()
@@ -95,7 +100,7 @@ def main():
 
     # quick sanity decode
     feats0, toks0 = ds[0]
-    hyp = tok.decode(greedy_search(model, feats0))
+    hyp = tok.decode(greedy_search(model, feats0.to(device)))
     ref = tok.decode(toks0.tolist())
     print(f"[decode] ref='{ref}'  hyp='{hyp}'  wer={wer([ref],[hyp]):.2f}")
 

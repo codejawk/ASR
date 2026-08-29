@@ -30,7 +30,7 @@ from ..decode import greedy_search
 from ..distill import FeatureProjector, Teacher, ctc_kd_loss, feature_kd_loss
 from ..eval import wer
 from ..features import LogMelFrontend, OnlineCMVN
-from .utils import build_model1, configure_optimizer, load_config, set_seed
+from .utils import build_model1, configure_optimizer, load_config, pick_device, set_seed
 
 
 def _load_transducer(ckpt_path, tok):
@@ -54,11 +54,13 @@ def main():
     ap.add_argument("--feature-kd", action="store_true")
     ap.add_argument("--pseudo-label", action="store_true",
                     help="relabel the manifest with the teacher's hypotheses (sequence-KD)")
+    ap.add_argument("--device", default="cpu", help="cpu | cuda | mps | auto")
     ap.add_argument("--out", default="runs/student")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
     set_seed(args.seed)
+    device = pick_device(args.device)
     os.makedirs(args.out, exist_ok=True)
     tok = load_tokenizer(args.tokenizer)
     fe = LogMelFrontend(n_mels=80)
@@ -69,15 +71,16 @@ def main():
         make_synthetic_asr_manifest(args.manifest, n=64, seed=args.seed)
 
     teacher_model, _ = _load_transducer(args.teacher, tok)
+    teacher_model = teacher_model.to(device)
     teacher = Teacher(teacher_model, tok)
     n_mels = teacher_model.cfg.encoder.input_dim
     fe = LogMelFrontend(n_mels=n_mels); cmvn = OnlineCMVN(n_mels=n_mels)
 
     scfg = load_config(args.student_config)
     assert scfg["encoder"]["input_dim"] == n_mels, "teacher/student n_mels must match for CTC-KD"
-    student = build_model1(scfg, tok.vocab_size)
+    student = build_model1(scfg, tok.vocab_size).to(device)
     print(f"[params] teacher {teacher_model.num_params()['total']/1e6:.2f} M -> "
-          f"student {student.num_params()['total']/1e6:.2f} M")
+          f"student {student.num_params()['total']/1e6:.2f} M | device: {device}")
 
     ds = ManifestDataset(args.manifest, fe, cmvn, tok, task="asr")
 
@@ -100,7 +103,7 @@ def main():
     projector = None
     params = list(student.parameters())
     if args.feature_kd:
-        projector = FeatureProjector(student.encoder.out_dim, teacher_model.encoder.out_dim)
+        projector = FeatureProjector(student.encoder.out_dim, teacher_model.encoder.out_dim).to(device)
         params += list(projector.parameters())
     opt = configure_optimizer(student, lr=args.lr)
     if projector is not None:
@@ -114,6 +117,7 @@ def main():
         except StopIteration:
             it = iter(dl); f, fl, t, tl = next(it)
 
+        f, fl, t, tl = f.to(device), fl.to(device), t.to(device), tl.to(device)
         soft = teacher.soft_targets(f, fl, t, tl)
         out = student(f, fl, t, tl, return_features=True)
         kd = ctc_kd_loss(out["ctc_logits"], soft["ctc_logits"], out["enc_lens"], tau=args.tau)
@@ -138,7 +142,7 @@ def main():
         fi, ti = ds[i]
         refs.append(tok.decode(ti.tolist()))
         ht.append(teacher.transcribe(fi))
-        hs.append(tok.decode(greedy_search(student, fi)))
+        hs.append(tok.decode(greedy_search(student, fi.to(device))))
     print(f"[eval] teacher WER {wer(refs, ht):.3f} | student WER {wer(refs, hs):.3f}")
 
 

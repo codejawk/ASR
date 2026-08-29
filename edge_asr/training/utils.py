@@ -23,6 +23,18 @@ def set_seed(seed: int = 0):
     torch.manual_seed(seed)
 
 
+def pick_device(name: str = "cpu") -> str:
+    """Resolve a device string. "auto" picks CUDA when available (e.g. Colab),
+    else CPU. Apple-Silicon MPS is only used when requested explicitly
+    (--device mps): the tiny synthetic runs don't need it, and the pure
+    PyTorch RNN-T fallback is a slow fit for MPS."""
+    if name == "auto":
+        if torch.cuda.is_available():
+            return "cuda"
+        return "cpu"
+    return name
+
+
 def load_config(path: str) -> Dict[str, Any]:
     with open(path) as f:
         return yaml.safe_load(f)
