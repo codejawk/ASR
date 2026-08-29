@@ -13,6 +13,7 @@ teacher's hypotheses — see docs/ARCHITECTURE.md 3.2.
 from __future__ import annotations
 
 import argparse
+import math
 import os
 
 import torch
@@ -40,6 +41,8 @@ def main():
     ap.add_argument("--steps", type=int, default=300)
     ap.add_argument("--batch-size", type=int, default=8)
     ap.add_argument("--lr", type=float, default=3e-4)
+    ap.add_argument("--warmup", type=int, default=500, help="LR warmup steps")
+    ap.add_argument("--lr-floor", type=float, default=0.05, help="final LR as a fraction of peak")
     ap.add_argument("--noise-dir", default=None)
     ap.add_argument("--device", default="cpu", help="cpu | cuda | mps | auto")
     ap.add_argument("--out", default="runs/model1")
@@ -72,6 +75,15 @@ def main():
           "| device:", device)
     opt = configure_optimizer(model, lr=args.lr, weight_decay=1e-2)
 
+    # LR schedule: linear warmup then cosine decay. Transducers are unstable
+    # early — without warmup the loss oscillates and never converges on real
+    # (long) utterances. This is standard for from-scratch ASR training.
+    def lr_scale(step):
+        if step < args.warmup:
+            return (step + 1) / max(1, args.warmup)
+        prog = (step - args.warmup) / max(1, args.steps - args.warmup)
+        return 0.5 * (1.0 + math.cos(math.pi * min(prog, 1.0))) * (1 - args.lr_floor) + args.lr_floor
+
     model.train()
     step = 0
     it = iter(dl)
@@ -81,6 +93,8 @@ def main():
         except StopIteration:
             it = iter(dl)
             continue
+        for g in opt.param_groups:
+            g["lr"] = args.lr * lr_scale(step)
         feats, flen, toks, tlen = (feats.to(device), flen.to(device),
                                    toks.to(device), tlen.to(device))
         out = model(feats, flen, toks, tlen)
@@ -91,7 +105,8 @@ def main():
         step += 1
         if step % 25 == 0 or step == 1:
             print(f"step {step:4d}  loss {out['loss'].item():.3f}  "
-                  f"rnnt {out['rnnt'].item():.3f}  ctc {out['ctc'].item():.3f}")
+                  f"rnnt {out['rnnt'].item():.3f}  ctc {out['ctc'].item():.3f}  "
+                  f"lr {opt.param_groups[0]['lr']:.2e}")
 
     ckpt = os.path.join(args.out, "model1.pt")
     torch.save({"model": model.state_dict(), "config": cfg,
