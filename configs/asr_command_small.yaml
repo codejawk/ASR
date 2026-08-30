@@ -1,0 +1,22 @@
+# Small streaming ASR for the COMMAND domain — learns a limited vocabulary
+# from a few hundred clips (unlike general ASR). ~3-4 M params -> ~3 MB int8.
+# Use char tokenizer (commands have a small alphabet; no BPE/UNK risk).
+
+blank: 0
+decoder_dim: 128
+joiner_dim: 128
+context: 2
+ctc_loss_scale: 0.3
+
+encoder:
+  encoder_type: conformer
+  input_dim: 80
+  d_model: 160
+  n_layers: 4
+  n_heads: 4
+  ff_dim: 320
+  conv_kernel: 15
+  subsampling_factor: 4
+  chunk_frames: 32
+  left_context_chunks: 4
+  dropout: 0.1
