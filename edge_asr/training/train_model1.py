@@ -44,6 +44,7 @@ def main():
     ap.add_argument("--warmup", type=int, default=500, help="LR warmup steps")
     ap.add_argument("--lr-floor", type=float, default=0.05, help="final LR as a fraction of peak")
     ap.add_argument("--noise-dir", default=None)
+    ap.add_argument("--init", default=None, help="warm-start from an existing checkpoint (fine-tuning)")
     ap.add_argument("--device", default="cpu", help="cpu | cuda | mps | auto")
     ap.add_argument("--out", default="runs/model1")
     ap.add_argument("--seed", type=int, default=0)
@@ -71,6 +72,10 @@ def main():
     dl = DataLoader(ds, batch_size=args.batch_size, shuffle=True, collate_fn=collate_asr)
 
     model = build_model1(cfg, tok.vocab_size).to(device)
+    if args.init:
+        ini = torch.load(args.init, map_location=device, weights_only=False)
+        model.load_state_dict(ini["model"])
+        print(f"[init] warm-started from {args.init}")
     print("[params]", model.num_params(), "| encoder:", cfg["encoder"].get("encoder_type", "conformer"),
           "| device:", device)
     opt = configure_optimizer(model, lr=args.lr, weight_decay=1e-2)

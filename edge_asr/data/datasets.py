@@ -23,12 +23,28 @@ from ..features import LogMelFrontend, OnlineCMVN
 
 
 def load_wav(path: str, sr: int = 16000) -> torch.Tensor:
+    """Load audio as a mono float32 tensor at `sr`. Fast path for 16 kHz WAV
+    via stdlib `wave`; falls back to soundfile/librosa for FLAC/MP3/other
+    rates (e.g. SLURP is FLAC) — resampling as needed."""
     if path.endswith(".pt"):
         return torch.load(path)
-    with wave.open(path, "rb") as w:
-        assert w.getframerate() == sr, f"expected {sr} Hz, got {w.getframerate()}"
-        frames = w.readframes(w.getnframes())
-    return torch.frombuffer(bytearray(frames), dtype=torch.int16).float() / 32768.0
+    if path.endswith(".wav"):
+        try:
+            with wave.open(path, "rb") as w:
+                if w.getframerate() == sr and w.getnchannels() == 1:
+                    frames = w.readframes(w.getnframes())
+                    return torch.frombuffer(bytearray(frames), dtype=torch.int16).float() / 32768.0
+        except Exception:
+            pass
+    # general path (FLAC, MP3, non-16k, stereo, ...)
+    import soundfile as sf
+    data, file_sr = sf.read(path, dtype="float32", always_2d=False)
+    if getattr(data, "ndim", 1) > 1:
+        data = data.mean(axis=1)
+    if file_sr != sr:
+        import librosa
+        data = librosa.resample(data, orig_sr=file_sr, target_sr=sr)
+    return torch.tensor(data, dtype=torch.float32)
 
 
 class ManifestDataset(Dataset):
