@@ -6,175 +6,100 @@
 
 <style>
   :root{
-    --ink:#0B0F14; --panel:#121A22; --panel-2:#0E141A;
-    --line:#233240; --line-soft:#1A2530;
-    --text:#E7EEF4; --muted:#93A4B2; --dim:#67788A;
-    --teal:#3AD6C9; --teal-deep:#0F3B39; --teal-glow:#3ad6c92e;
-    --amber:#F2A860; --amber-deep:#3a2a17;
-    --red:#E76A7C; --red-deep:#3a1c22;
+    --ink:#0B0F14; --panel:#131B24; --panel-2:#0F161D;
+    --line:#25333F; --line-soft:#1B2732;
+    --text:#E9F0F5; --muted:#9AAAB7; --dim:#63737F;
+    --teal:#3AD6C9; --teal-deep:#0F3B39;
+    --amber:#F2A860; --red:#E5687A;
     --display:'Archivo',system-ui,sans-serif;
     --body:'IBM Plex Sans',system-ui,sans-serif;
     --mono:'IBM Plex Mono',ui-monospace,monospace;
-    --maxw:1080px; --radius:14px;
+    --maxw:1120px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  body{
-    margin:0; background:var(--ink); color:var(--text);
-    font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased;
-    scroll-snap-type:y mandatory; overflow-x:hidden;
-  }
-  body::before{
-    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:
-      radial-gradient(1200px 600px at 82% -8%, var(--teal-glow), transparent 60%),
-      radial-gradient(900px 500px at 8% 110%, #f2a86016, transparent 60%),
-      linear-gradient(var(--line-soft) 1px,transparent 1px) 0 0/100% 46px,
-      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px) 0 0/46px 100%;
-    opacity:.5;
-  }
-  .slide{
-    position:relative; z-index:1; min-height:100vh; scroll-snap-align:start;
-    display:flex; flex-direction:column; justify-content:center;
-    padding:clamp(28px,6vh,64px) clamp(22px,7vw,96px);
-  }
-  .wrap{width:100%; max-width:var(--maxw); margin:0 auto}
-  .eyebrow{
-    font-family:var(--mono); font-size:.72rem; letter-spacing:.22em;
-    text-transform:uppercase; color:var(--teal); margin:0 0 16px;
-    display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{content:""; width:26px; height:2px; background:var(--teal); display:inline-block}
-  .eyebrow.amber{color:var(--amber)} .eyebrow.amber::before{background:var(--amber)}
-  .eyebrow.red{color:var(--red)} .eyebrow.red::before{background:var(--red)}
-  .snum{position:absolute; top:clamp(20px,4vh,38px); right:clamp(22px,7vw,96px);
-    font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; color:var(--dim);}
-  .snum b{color:var(--text)}
-  h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; font-weight:700; letter-spacing:-.01em}
-  h1{font-size:clamp(3rem,9vw,6rem); font-weight:800; line-height:.98; letter-spacing:-.03em}
-  h2{font-size:clamp(1.6rem,3.7vw,2.5rem); line-height:1.06; margin-bottom:8px}
-  h3{font-size:1.05rem; font-weight:600}
-  p{margin:0} .lede{font-size:clamp(1.02rem,1.6vw,1.24rem); color:var(--muted); max-width:62ch}
-  .mono{font-family:var(--mono)} .teal{color:var(--teal)} .amber{color:var(--amber)} .red{color:var(--red)}
-  .num{font-variant-numeric:tabular-nums}
+  body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);line-height:1.5;
+    -webkit-font-smoothing:antialiased;scroll-snap-type:y mandatory;overflow-x:hidden;}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(var(--line-soft) 1px,transparent 1px) 0 0/100% 48px,
+      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px) 0 0/48px 100%;opacity:.35;}
+  .slide{position:relative;z-index:1;min-height:100vh;scroll-snap-align:start;display:flex;
+    flex-direction:column;justify-content:center;padding:clamp(26px,5vh,56px) clamp(22px,6vw,88px);}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--teal);margin:0 0 12px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--teal)}
+  .eyebrow.amber{color:var(--amber)}.eyebrow.amber::before{background:var(--amber)}
+  .eyebrow.red{color:var(--red)}.eyebrow.red::before{background:var(--red)}
+  .snum{position:absolute;top:clamp(18px,4vh,34px);right:clamp(22px,6vw,88px);font-family:var(--mono);
+    font-size:.7rem;letter-spacing:.14em;color:var(--dim)}.snum b{color:var(--text)}
+  h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;font-weight:700;letter-spacing:-.01em}
+  h1{font-size:clamp(2.8rem,8vw,5.4rem);font-weight:800;line-height:.98;letter-spacing:-.03em}
+  h2{font-size:clamp(1.5rem,3.3vw,2.25rem);line-height:1.08;margin-bottom:6px}
+  h3{font-size:1rem;font-weight:600}
+  p{margin:0}.lede{font-size:clamp(1rem,1.5vw,1.18rem);color:var(--muted);max-width:64ch}
+  .mono{font-family:var(--mono)}.teal{color:var(--teal)}.amber{color:var(--amber)}.red{color:var(--red)}
 
-  .title-meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:28px}
-  .chip{font-family:var(--mono); font-size:.78rem; letter-spacing:.02em; padding:8px 14px;
-    border:1px solid var(--line); border-radius:999px; background:var(--panel); color:var(--muted);
-    display:inline-flex; gap:8px; align-items:center;}
-  .chip b{color:var(--text); font-weight:600}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}
-  .dot.amber{background:var(--amber);box-shadow:0 0 10px var(--amber)}
-  .kicker{font-family:var(--mono);letter-spacing:.28em;font-size:.74rem;color:var(--amber);text-transform:uppercase;margin-bottom:22px}
-  .repo{margin-top:32px;font-family:var(--mono);font-size:.82rem;color:var(--dim)}
-  .repo a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-deep)}
-  .waveline{display:block;margin-top:24px;color:var(--teal);opacity:.9}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .block{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px 16px}
+  .block .ic{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .block h3{margin-bottom:5px}.block p{color:var(--muted);font-size:.9rem;line-height:1.45}
+  .block ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:.9rem;line-height:1.6}
+  .block ul b{color:var(--text)}
 
-  .grid{display:grid; gap:15px; margin-top:24px}
-  .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
-  .card{background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--line);
-    border-radius:var(--radius); padding:20px 18px;}
-  .card .ic{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
-  .card h3{margin-bottom:6px} .card p{color:var(--muted);font-size:.94rem}
-  .card.good{border-color:#2f4a4a} .card.warn{border-color:#4a3a22}
-  .card .big{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1;color:var(--teal);letter-spacing:-.02em}
-  .card .big.amber{color:var(--amber)} .card .big.red{color:var(--red)}
-
-  ul.clean{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:13px}
-  ul.clean li{display:flex;gap:14px;align-items:flex-start;color:var(--muted);font-size:1.0rem}
-  ul.clean li .n{font-family:var(--mono);color:var(--teal);font-size:.82rem;padding-top:.28em;min-width:20px}
-  ul.clean li b{color:var(--text);font-weight:600}
-
-  .tbl{width:100%;border-collapse:collapse;margin-top:20px;font-size:.92rem}
-  .tbl th,.tbl td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line-soft)}
-  .tbl th{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:500}
-  .tbl td{color:var(--muted)} .tbl td b{color:var(--text)}
+  .tbl{width:100%;border-collapse:collapse;margin-top:16px;font-size:.9rem}
+  .tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line-soft)}
+  .tbl th{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:500}
+  .tbl td{color:var(--muted)}.tbl td b{color:var(--text)}
   .tbl td.k{color:var(--teal);font-family:var(--mono);font-variant-numeric:tabular-nums}
-  .tbl tr:hover td{background:#ffffff05}
-  .tag{font-family:var(--mono);font-size:.68rem;padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+  .tag{font-family:var(--mono);font-size:.66rem;padding:2px 8px;border-radius:5px;border:1px solid var(--line);color:var(--muted)}
   .tag.t{color:var(--teal);border-color:#274a48;background:#0f2b2a}
   .tag.a{color:var(--amber);border-color:#4a3a22;background:#2a2013}
   .tag.r{color:var(--red);border-color:#4a2530;background:#2a1418}
 
-  .note{margin-top:20px;font-size:.9rem;color:var(--muted);border-left:2px solid var(--amber);padding:8px 0 8px 16px;background:#f2a8600a}
-  .note b{color:var(--amber)}
-  .note.teal{border-color:var(--teal);background:#3ad6c90a} .note.teal b{color:var(--teal)}
+  figure{margin:16px 0 0}
+  figure svg{width:100%;height:auto;display:block}
+  figcaption{font-family:var(--mono);font-size:.74rem;color:var(--dim);margin-top:10px;line-height:1.5}
+  figcaption b{color:var(--muted)}
+  .diagram text{font-family:var(--mono)}
 
-  /* stat grid */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:22px}
-  .stat{border:1px solid var(--line);border-radius:12px;padding:16px 15px;background:var(--panel)}
-  .stat .v{font-family:var(--display);font-weight:800;font-size:1.75rem;color:var(--teal);letter-spacing:-.02em;line-height:1}
-  .stat .v.a{color:var(--amber)} .stat .v.r{color:var(--red)}
-  .stat .l{font-size:.8rem;color:var(--muted);margin-top:7px}
+  .note{margin-top:16px;font-size:.86rem;color:var(--muted);border-left:2px solid var(--teal);padding:6px 0 6px 14px}
+  .note b{color:var(--teal)}
+  .note.amber{border-color:var(--amber)}.note.amber b{color:var(--amber)}
+  .note.red{border-color:var(--red)}.note.red b{color:var(--red)}
 
-  /* proof / verified badge */
-  .verified{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--teal);border:1px solid #274a48;
-    background:#0f2b2a;border-radius:999px;padding:5px 12px;margin-bottom:16px}
-  .verified::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal)}
+  .rows{margin-top:14px;display:flex;flex-direction:column}
+  .row{display:grid;grid-template-columns:24px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+  .row .rn{font-family:var(--mono);color:var(--dim);font-size:.78rem}
+  .row.fix .rn{color:var(--teal)}.row.risk .rn{color:var(--red)}
+  .row .rt{color:var(--muted);font-size:.94rem}.row .rt b{color:var(--text)}
 
-  /* transcript demo line */
-  .demo{margin-top:20px;display:flex;flex-direction:column;gap:11px}
-  .dline{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:13px 16px;
-    border:1px solid var(--line);border-radius:12px;background:var(--panel)}
-  .dline .who{font-family:var(--mono);font-size:.72rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
-  .dline .said{font-family:var(--mono);font-size:.98rem;color:var(--text)}
-  .dline.ok{border-color:#274a48} .dline.ok .said{color:var(--teal)}
-  .dline.bad{border-color:#4a2530} .dline.bad .said{color:var(--red)}
+  .kicker{font-family:var(--mono);letter-spacing:.26em;font-size:.72rem;color:var(--amber);text-transform:uppercase;margin-bottom:20px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+  .chip{font-family:var(--mono);font-size:.76rem;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+  .chip b{color:var(--text)}.dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}.dot.a{background:var(--amber)}
+  .repo{margin-top:28px;font-family:var(--mono);font-size:.8rem;color:var(--dim)}
+  .repo a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-deep)}
+  .verified{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);border:1px solid #274a48;background:#0f2b2a;border-radius:999px;padding:4px 11px;margin-bottom:12px}
+  .verified::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal)}
 
-  /* journey rows */
-  .rows{margin-top:18px;display:flex;flex-direction:column}
-  .row{display:grid;grid-template-columns:26px 1fr;gap:14px;padding:13px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
-  .row .rn{font-family:var(--mono);color:var(--dim);font-size:.8rem}
-  .row .rt{color:var(--muted)} .row .rt b{color:var(--text)}
-  .row.fix .rn{color:var(--teal)} .row.risk .rt b{color:var(--red)}
-
-  /* pipeline diagram */
-  .flow{margin-top:22px;display:flex;flex-direction:column;gap:0;align-items:stretch}
-  .stage{border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;background:linear-gradient(180deg,var(--panel),var(--panel-2));position:relative}
-  .stage.enpu{border-color:#4a3a22} .stage.hex{border-color:#274a48}
-  .stage .head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-  .stage .t{font-family:var(--display);font-weight:700;font-size:1.08rem}
-  .stage .s{color:var(--muted);font-size:.9rem;margin-top:5px}
-  .pill{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
-  .pill.on{color:var(--amber);background:#2a2013;border:1px solid #4a3a22}
-  .pill.duty{color:var(--teal);background:#0f2b2a;border:1px solid #274a48}
-  .connector{height:30px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .connector .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
-  .heads{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-  .htag{font-family:var(--mono);font-size:.7rem;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:5px 9px}
-  .htag b{color:var(--teal)}
-
-  .refs{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px 26px;font-family:var(--mono);font-size:.76rem;color:var(--muted);line-height:1.8}
-  .refs .h{color:var(--amber);grid-column:1/-1;margin-top:10px;letter-spacing:.08em;text-transform:uppercase;font-size:.68rem}
-  .refs span{color:var(--dim)}
-  @media (max-width:720px){.refs{grid-template-columns:1fr}}
-
-  .close h2{font-size:clamp(2rem,5vw,3.3rem);max-width:20ch;margin-bottom:16px}
-
-  .rail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:9px}
-  .rail button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#3a4a58;cursor:pointer;transition:transform .2s,background .2s}
-  .rail button:hover{background:var(--muted)}
-  .rail button[aria-current="true"]{background:var(--teal);transform:scale(1.5);box-shadow:0 0 10px var(--teal)}
+  .rail{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:8px}
+  .rail button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#37454f;cursor:pointer;transition:.2s}
+  .rail button:hover{background:var(--muted)}.rail button[aria-current="true"]{background:var(--teal);transform:scale(1.5)}
   .rail button:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-  .progress{position:fixed;left:0;top:0;height:3px;background:var(--teal);z-index:11;width:0;box-shadow:0 0 12px var(--teal)}
-  .hint{position:fixed;left:18px;bottom:14px;z-index:10;font-family:var(--mono);font-size:.66rem;color:var(--dim);letter-spacing:.06em}
-  .hint kbd{border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--muted)}
-  @media (max-width:760px){.rail,.hint{display:none}.stats{grid-template-columns:repeat(2,1fr)}.g3,.g2,.g4{grid-template-columns:1fr}}
-
-  .reveal{opacity:1;transform:none}
-  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .js .in .reveal{animation:rise .55s both}
-  .js .in .reveal:nth-child(2){animation-delay:.05s}
-  .js .in .reveal:nth-child(3){animation-delay:.1s}
-  .js .in .reveal:nth-child(4){animation-delay:.15s}
+  .progress{position:fixed;left:0;top:0;height:3px;background:var(--teal);z-index:11;width:0}
+  @media (max-width:820px){.rail{display:none}.cols,.cols3{grid-template-columns:1fr}}
+  .reveal{opacity:1}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .js .in .reveal{animation:rise .5s both}
+  .js .in .reveal:nth-child(2){animation-delay:.05s}.js .in .reveal:nth-child(3){animation-delay:.1s}
   @media (prefers-reduced-motion:reduce){.js .in .reveal{animation:none}}
 </style>
 
 <div class="progress" id="prog"></div>
 <nav class="rail" id="rail" aria-label="Slides"></nav>
-<div class="hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> navigate &middot; <kbd>space</kbd> next</div>
 
 <!-- 1 TITLE -->
 <section class="slide" id="s1">
@@ -182,382 +107,382 @@
   <div class="wrap">
     <div class="kicker reveal">Edge ASR &middot; Snapdragon Wear Elite / SW6100</div>
     <h1 class="reveal">WristVoice</h1>
-    <p class="lede reveal" style="margin-top:20px">On-device speech recognition for a smartwatch &mdash; <b class="teal">10&nbsp;MB</b> general language + <b class="amber">5&nbsp;MB</b> commands, streaming, no cloud.</p>
-    <svg class="waveline reveal" width="300" height="30" viewBox="0 0 300 30" fill="none" aria-hidden="true">
-      <path d="M0 15 H34 l6 -11 6 22 6 -18 6 15 6 -8 H112 l6 -14 6 27 6 -20 6 13 H300" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-    <div class="title-meta reveal">
-      <span class="chip"><span class="dot"></span><b>What we want</b> &middot; two tiny models on the wrist</span>
-      <span class="chip"><span class="dot amber"></span><b>What we proved</b> &middot; a working recognizer, built &amp; measured</span>
+    <p class="lede reveal" style="margin-top:18px">On-device speech recognition for a smartwatch, in <b class="teal">10 MB</b> (general) + <b class="amber">5 MB</b> (commands). Streaming, no cloud. This deck: the design, and the <b>proof of concept we built and measured</b>.</p>
+    <div class="chips reveal">
+      <span class="chip"><span class="dot"></span><b>Command model:</b>&nbsp;built, 0.20 WER, 2.55 MB, live</span>
+      <span class="chip"><span class="dot a"></span><b>Teacher:</b>&nbsp;Whisper, 0.05 WER on real speech</span>
     </div>
-    <p class="repo reveal">Technical &middot; Proof of concept &middot; Roadmap &nbsp;|&nbsp; github.com/<a href="https://github.com/codejawk/ASR">codejawk/ASR</a></p>
+    <p class="repo reveal">github.com/<a href="https://github.com/codejawk/ASR">codejawk/ASR</a></p>
   </div>
 </section>
 
-<!-- 2 GOAL -->
+<!-- 2 GOAL + CONSTRAINTS -->
 <section class="slide" id="s2">
   <span class="snum"><b>02</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">The goal</p>
-    <h2 class="reveal">Put two speech models on a watch &mdash; and keep them tiny</h2>
-    <div class="grid g2">
-      <div class="card reveal"><div class="ic">Model 1 &middot; &le; 10 MB</div><h3 class="teal">General recognition</h3><p>Free-form natural language: dictation, messages, questions. Streaming, low latency.</p></div>
-      <div class="card reveal"><div class="ic">Model 2 &middot; &le; 5 MB</div><h3 class="amber">Commands</h3><p>"Call mom", "set a timer" &mdash; always-on, and understands intent + slots, not just keywords.</p></div>
+    <p class="eyebrow reveal">The goal &amp; the constraints</p>
+    <h2 class="reveal">Two tiny speech models on a watch &mdash; and why it's hard</h2>
+    <div class="cols">
+      <div class="block reveal"><div class="ic">What we want</div>
+        <ul>
+          <li><b>Model 1</b> &mdash; general recognition, dictation &amp; free speech, &le; 10 MB</li>
+          <li><b>Model 2</b> &mdash; commands + intent/slot, always-on, &le; 5 MB</li>
+          <li>Fully <b>on-device</b>, <b>streaming</b>, runs on the NPU</li>
+        </ul>
+      </div>
+      <div class="block reveal"><div class="ic">Why it's hard</div>
+        <ul>
+          <li><b>Memory</b> &mdash; 10+5 MB resident (RAM/OTA), not a compute limit</li>
+          <li><b>Power</b> &mdash; commands must run 24/7 at eNPU milliwatts</li>
+          <li><b>Deployment</b> &mdash; int4 on QNN/HTP, standard ops only</li>
+        </ul>
+      </div>
     </div>
-    <p class="note teal reveal"><b>Non-negotiables:</b> fully on-device (privacy + offline), streaming (text as you speak), and small enough to fit the memory budget while running on the phone's NPU.</p>
+    <p class="note amber reveal"><b>Reference point:</b> the smallest compressed edge ASR in the 2026 literature is still ~670 MB. 10 MB is only reachable by <b>designing small + distilling + int4</b>.</p>
   </div>
 </section>
 
-<!-- 3 CONSTRAINTS -->
+<!-- 3 ARCHITECTURE DIAGRAM -->
 <section class="slide" id="s3">
   <span class="snum"><b>03</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">Why it's hard</p>
-    <h2 class="reveal">Three constraints shape every decision</h2>
-    <div class="grid g3">
-      <div class="card reveal"><div class="ic">Memory</div><h3>10 + 5 MB resident</h3><p>Not a compute limit &mdash; the chip runs 2B-param models. It's RAM residency, OTA size, a shared OS pool.</p></div>
-      <div class="card reveal"><div class="ic">Power</div><h3>Always-on vs duty-cycled</h3><p>Commands must listen 24/7 at eNPU milliwatts. A 10 MB encoder can't run continuously without draining the battery.</p></div>
-      <div class="card reveal"><div class="ic">Deployment</div><h3>int4 on QNN / HTP</h3><p>Must map to accelerator ops. No exotic kernels, no dynamic loops in the graph.</p></div>
-    </div>
+    <p class="eyebrow reveal">System architecture</p>
+    <h2 class="reveal">Two-tier cascade across the dual NPU</h2>
+    <figure class="reveal">
+      <svg class="diagram" viewBox="0 0 900 340" role="img" aria-label="Audio flows into an always-on command model on the eNPU, which either fires a command directly or wakes the duty-cycled general recognizer on the Hexagon NPU, which outputs text.">
+        <defs>
+          <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#9AAAB7"/></marker>
+          <marker id="at" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#F2A860"/></marker>
+        </defs>
+        <!-- input -->
+        <rect x="30" y="150" width="120" height="46" rx="8" fill="#131B24" stroke="#25333F"/>
+        <text x="90" y="171" fill="#E9F0F5" font-size="13" text-anchor="middle">mic</text>
+        <text x="90" y="187" fill="#63737F" font-size="10.5" text-anchor="middle">log-mel 100 Hz</text>
+        <line x1="150" y1="173" x2="205" y2="173" stroke="#9AAAB7" stroke-width="1.5" marker-end="url(#ah)"/>
+        <!-- Model 2 eNPU -->
+        <rect x="210" y="96" width="250" height="154" rx="10" fill="#131B24" stroke="#F2A860" stroke-opacity=".55"/>
+        <text x="228" y="120" fill="#F2A860" font-size="10.5">eNPU &middot; ALWAYS-ON &middot; ~mW</text>
+        <text x="228" y="146" fill="#E9F0F5" font-size="15" font-family="Archivo,sans-serif" font-weight="700">Model 2 &mdash; Commands</text>
+        <text x="228" y="172" fill="#9AAAB7" font-size="11.5">wake stub &middot; open-vocab KWS</text>
+        <text x="228" y="190" fill="#9AAAB7" font-size="11.5">router &middot; intent / slot SLU</text>
+        <text x="228" y="222" fill="#63737F" font-size="10.5">&le; 5 MB &middot; 2.55 MB built</text>
+        <!-- command out -->
+        <line x1="460" y1="150" x2="700" y2="150" stroke="#9AAAB7" stroke-width="1.5" marker-end="url(#ah)"/>
+        <text x="580" y="142" fill="#9AAAB7" font-size="10.5" text-anchor="middle">command &rarr; action</text>
+        <rect x="702" y="128" width="150" height="44" rx="8" fill="#131B24" stroke="#25333F"/>
+        <text x="777" y="154" fill="#E9F0F5" font-size="12.5" text-anchor="middle">direct action</text>
+        <!-- wake gate down -->
+        <line x1="335" y1="250" x2="335" y2="290" stroke="#F2A860" stroke-width="1.5" marker-end="url(#at)"/>
+        <text x="348" y="276" fill="#F2A860" font-size="10.5">wake &rarr; gate</text>
+        <!-- Model 1 Hexagon -->
+        <rect x="210" y="290" width="250" height="0" ></rect>
+        <rect x="210" y="288" width="470" height="44" rx="10" fill="#131B24" stroke="#3AD6C9" stroke-opacity=".5"/>
+        <text x="228" y="306" fill="#3AD6C9" font-size="10.5">HEXAGON &middot; DUTY-CYCLED</text>
+        <text x="228" y="323" fill="#E9F0F5" font-size="12.5">Model 1 &mdash; streaming transducer + aux CTC &middot; int4 &le; 10 MB</text>
+        <line x1="680" y1="310" x2="760" y2="310" stroke="#9AAAB7" stroke-width="1.5" marker-end="url(#ah)"/>
+        <rect x="762" y="288" width="108" height="44" rx="8" fill="#131B24" stroke="#25333F"/>
+        <text x="816" y="314" fill="#3AD6C9" font-size="12.5" text-anchor="middle">text</text>
+      </svg>
+      <figcaption>The always-on command model is also the <b>gate</b>: the battery-hungry general recognizer wakes only when there is something to transcribe.</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- 4 WHAT IS ASR -->
+<!-- 4 TRAINING PIPELINE DIAGRAM -->
 <section class="slide" id="s4">
   <span class="snum"><b>04</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">Primer</p>
-    <h2 class="reveal">ASR is a stack &mdash; the "head" decides if it fits a watch</h2>
-    <p class="lede reveal"><span class="mono">audio &rarr; log-mel features &rarr; encoder &rarr; head &rarr; text.</span> What determines size &amp; streaming is the head:</p>
-    <div style="overflow-x:auto" class="reveal">
-    <table class="tbl">
-      <thead><tr><th>Head</th><th>Streaming?</th><th>Cost</th><th>Our use</th></tr></thead>
-      <tbody>
-        <tr><td><b>CTC</b></td><td>trivially</td><td>cheapest (one linear layer)</td><td><span class="tag a">Model 2</span></td></tr>
-        <tr><td><b>RNN-T / transducer</b></td><td>natively</td><td>+ predictor + joiner</td><td><span class="tag t">Model 1</span></td></tr>
-        <tr><td>AED (Whisper)</td><td>only with tricks</td><td>full decoder</td><td><span class="tag">teacher</span></td></tr>
-        <tr><td>LLM-decoder</td><td>no</td><td>GB-scale</td><td><span class="tag">teacher</span></td></tr>
-      </tbody>
-    </table>
-    </div>
-    <p class="note reveal">Streaming vs offline is <b>architectural, not tunable</b> &mdash; you can't quantize an offline model into a streaming one. That's why Whisper is our teacher, never the on-device model.</p>
+    <p class="eyebrow reveal">How the models are built</p>
+    <h2 class="reveal">One teacher labels the data and supervises two students</h2>
+    <figure class="reveal">
+      <svg class="diagram" viewBox="0 0 900 260" role="img" aria-label="Unlabeled audio is transcribed by a Whisper teacher on a GPU; those labels train two small student models, which are int4-quantized and deployed to the watch. The teacher is discarded after training.">
+        <defs><marker id="a2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#9AAAB7"/></marker></defs>
+        <rect x="24" y="100" width="140" height="60" rx="9" fill="#131B24" stroke="#25333F"/>
+        <text x="94" y="126" fill="#E9F0F5" font-size="12.5" text-anchor="middle">audio</text>
+        <text x="94" y="143" fill="#63737F" font-size="10" text-anchor="middle">unlabeled + wrist</text>
+        <line x1="164" y1="130" x2="212" y2="130" stroke="#9AAAB7" stroke-width="1.5" marker-end="url(#a2)"/>
+        <text x="188" y="122" fill="#9AAAB7" font-size="9.5" text-anchor="middle">label</text>
+        <rect x="214" y="96" width="170" height="68" rx="9" fill="#131B24" stroke="#F2A860" stroke-opacity=".5"/>
+        <text x="299" y="120" fill="#F2A860" font-size="10" text-anchor="middle">TEACHER &middot; GPU, OFFLINE</text>
+        <text x="299" y="140" fill="#E9F0F5" font-size="13" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="700">Whisper-large</text>
+        <text x="299" y="156" fill="#63737F" font-size="9.5" text-anchor="middle">discarded after training</text>
+        <line x1="384" y1="130" x2="430" y2="130" stroke="#9AAAB7" stroke-width="1.5" marker-end="url(#a2)"/>
+        <text x="407" y="122" fill="#9AAAB7" font-size="9.5" text-anchor="middle">distil</text>
+        <rect x="432" y="70" width="180" height="52" rx="9" fill="#131B24" stroke="#3AD6C9" stroke-opacity=".5"/>
+        <text x="522" y="90" fill="#3AD6C9" font-size="12" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="700">Student &middot; Model 1</text>
+        <text x="522" y="107" fill="#63737F" font-size="10" text-anchor="middle">transducer, general</text>
+        <rect x="432" y="138" width="180" height="52" rx="9" fill="#131B24" stroke="#3AD6C9" stroke-opacity=".5"/>
+        <text x="522" y="158" fill="#3AD6C9" font-size="12" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="700">Student &middot; Model 2</text>
+        <text x="522" y="175" fill="#63737F" font-size="10" text-anchor="middle">CTC + SLU, commands</text>
+        <line x1="612" y1="130" x2="658" y2="130" stroke="#9AAAB7" stroke-width="1.5" marker-end="url(#a2)"/>
+        <text x="635" y="122" fill="#9AAAB7" font-size="9.5" text-anchor="middle">int4 QAT</text>
+        <rect x="660" y="104" width="120" height="52" rx="9" fill="#131B24" stroke="#25333F"/>
+        <text x="720" y="130" fill="#E9F0F5" font-size="12" text-anchor="middle">&le; 10 MB</text>
+        <text x="720" y="146" fill="#63737F" font-size="9.5" text-anchor="middle">quantized</text>
+        <line x1="780" y1="130" x2="820" y2="130" stroke="#9AAAB7" stroke-width="1.5" marker-end="url(#a2)"/>
+        <rect x="822" y="104" width="60" height="52" rx="9" fill="#131B24" stroke="#3AD6C9" stroke-opacity=".5"/>
+        <text x="852" y="134" fill="#3AD6C9" font-size="12" text-anchor="middle">watch</text>
+      </svg>
+      <figcaption><b>Distillation-first:</b> a large teacher lets a ~10M-param student punch far above its weight. The teacher runs once, on a GPU, then is thrown away &mdash; only the small students ship.</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- 5 SOTA -->
+<!-- 5 MODELS SPEC -->
 <section class="slide" id="s5">
   <span class="snum"><b>05</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">State of the art &middot; 2025&ndash;26</p>
-    <h2 class="reveal">Where the field is &mdash; and what's relevant to us</h2>
-    <div class="grid g3">
-      <div class="card reveal"><div class="ic">Frontier encoders</div><h3 class="teal">SSM / Mamba</h3><p>O(1) recurrent state, no growing KV cache. Samba-ASR, ConMamba &mdash; battery-friendly streaming.</p></div>
-      <div class="card reveal"><div class="ic">Accuracy / param</div><h3 class="teal">Zipformer</h3><p>The open streaming leader (ICLR 2024). Standard ops &rarr; deploys on the NPU today.</p></div>
-      <div class="card reveal"><div class="ic">Teachers</div><h3 class="amber">Whisper / Parakeet</h3><p>Whisper-large 1.5B (WER ~5&ndash;7%); Parakeet-TDT-0.6B faster on English. Used to label data.</p></div>
+    <p class="eyebrow reveal">The two models</p>
+    <h2 class="reveal">Right head for each job</h2>
+    <div class="cols">
+      <div class="block reveal"><div class="ic">Model 1 &middot; general &middot; &le; 10 MB</div>
+        <h3 class="teal">Streaming transducer (RNN-T) + aux CTC</h3>
+        <ul>
+          <li>Cache-aware chunked encoder (every frame encoded once)</li>
+          <li>Encoder = 85% of budget; Conformer-lite or Mamba/SSM</li>
+          <li><b>Mamba int4: 5.17 MB</b> &middot; Conformer int4: 6.51 MB</li>
+          <li>Transducer models word context &mdash; best for free dictation</li>
+        </ul>
+      </div>
+      <div class="block reveal"><div class="ic">Model 2 &middot; commands &middot; &le; 5 MB</div>
+        <h3 class="amber">Conformer-CTC + FST + intent/slot</h3>
+        <ul>
+          <li>Open-vocab keywords (add a command by typing text)</li>
+          <li>On-device SLU: <span class="mono">"timer for 5 min" &rarr; {intent:timer, num:5}</span></li>
+          <li>CTC streams trivially, cheap, always-on friendly</li>
+          <li><b>Built at 2.55 MB int8</b> (1.35 MB int4 target)</li>
+        </ul>
+      </div>
     </div>
-    <p class="note teal reveal">Key datapoint: aggressively compressed edge ASR in the literature is still <b>~670 MB</b> (Microsoft, int4). Our 10 MB target is only reachable by <b>designing small + distilling + int4</b>, not by shrinking a big model.</p>
+    <p class="note reveal">CTC for commands, transducer for dictation &mdash; the principled version of "Conformer without the decoder."</p>
   </div>
 </section>
 
-<!-- 6 THESIS -->
+<!-- 6 TECHNIQUES -->
 <section class="slide" id="s6">
   <span class="snum"><b>06</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">Our approach</p>
-    <h2 class="reveal">Distil two specialists from one teacher</h2>
-    <ul class="clean">
-      <li class="reveal"><span class="n">01</span><span><b>Distillation-first is the real lever.</b> At ~10M params, a large teacher is worth <b class="teal">20&ndash;40% relative WER</b>; a fancier encoder is worth ~2%. Optimize what moves.</span></li>
-      <li class="reveal"><span class="n">02</span><span><b>Right head per job.</b> Transducer for free dictation (Model 1); CTC + intent/slot for commands (Model 2).</span></li>
-      <li class="reveal"><span class="n">03</span><span><b>Share knowledge, not weights.</b> The always-on power budget forces two separate models &mdash; <b class="amber">siblings distilled from one teacher</b>, not one shared network.</span></li>
-    </ul>
+    <p class="eyebrow reveal">What makes it small AND accurate</p>
+    <h2 class="reveal">Levers, ranked by real impact</h2>
+    <div style="overflow-x:auto" class="reveal">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Technique</th><th>Effect</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1</td><td><b>Distillation from a large teacher</b></td><td>10&times; smaller student within ~1 WER of teacher</td><td><span class="tag t">huge</span></td></tr>
+        <tr><td class="k">2</td><td><b>SSL pretrain (BEST-RQ)</b></td><td>tiny model punches above its weight</td><td><span class="tag t">high</span></td></tr>
+        <tr><td class="k">3</td><td><b>int4 QAT</b></td><td>halves encoder MB at ~1% WER</td><td><span class="tag t">high</span></td></tr>
+        <tr><td class="k">4</td><td>Elastic / Matryoshka width</td><td>one net, battery-adaptive quality</td><td><span class="tag a">med</span></td></tr>
+        <tr><td class="k">5</td><td>Low-rank vocab projection</td><td>trims the joiner tax (paid twice)</td><td><span class="tag">small</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note amber reveal"><b>The finding:</b> at ~10M params, the teacher is worth 20&ndash;40% relative WER; the encoder architecture is worth ~2%. We optimize what moves.</p>
   </div>
 </section>
 
-<!-- 7 ARCHITECTURE -->
+<!-- 7 POC INTRO -->
 <section class="slide" id="s7">
   <span class="snum"><b>07</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">System architecture</p>
-    <h2 class="reveal">A two-tier cascade across the dual NPU</h2>
-    <div class="flow reveal">
-      <span class="mono" style="color:var(--muted);font-size:.82rem;align-self:center;margin-bottom:4px">mic &rarr; log-mel &middot; 100 Hz</span>
-      <div class="stage enpu">
-        <div class="head"><div><div class="t">Model 2 &mdash; Commands + SLU</div><div class="s">open-vocab KWS &middot; router &middot; intent/slot</div></div><span class="pill on">eNPU &middot; always-on &middot; ~mW</span></div>
-        <div class="heads"><span class="htag">wake stub <b>0.1 MB</b></span><span class="htag">intent + slot <b>SLU</b></span><span class="htag">&le; <b>5 MB</b></span></div>
-      </div>
-      <div class="connector"><span class="lbl">wake &darr; gate</span></div>
-      <div class="stage hex">
-        <div class="head"><div><div class="t">Model 1 &mdash; General NLR</div><div class="s">streaming transducer + aux CTC</div></div><span class="pill duty">Hexagon &middot; duty-cycled</span></div>
-        <div class="heads"><span class="htag">int4-mixed <b>~5&ndash;6.5 MB</b></span><span class="htag">&rarr; <b>text</b></span></div>
-      </div>
-    </div>
-    <p class="note reveal">The command model doubles as the <b>gate</b> &mdash; the battery-hungry recognizer only wakes when there's something to transcribe.</p>
+    <div class="verified reveal">Proof of concept</div>
+    <h2 class="reveal">What we built and measured</h2>
+    <p class="lede reveal">A complete, runnable pipeline &mdash; <span class="mono">data &rarr; Whisper labels &rarr; train student &rarr; evaluate &rarr; int4 &rarr; on-device inference</span>. The next three slides are the measured numbers.</p>
+    <figure class="reveal" style="margin-top:20px">
+      <svg class="diagram" viewBox="0 0 900 70" role="img" aria-label="Pipeline stages, all verified: data, teacher labels, train, evaluate, quantize, run on device.">
+        <defs><marker id="a3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#3AD6C9"/></marker></defs>
+        <!-- 6 stages -->
+        <g font-size="12" text-anchor="middle">
+          <rect x="10" y="20" width="120" height="34" rx="7" fill="#0f2b2a" stroke="#274a48"/><text x="70" y="42" fill="#3AD6C9">data</text>
+          <line x1="130" y1="37" x2="152" y2="37" stroke="#3AD6C9" stroke-width="1.4" marker-end="url(#a3)"/>
+          <rect x="154" y="20" width="130" height="34" rx="7" fill="#0f2b2a" stroke="#274a48"/><text x="219" y="42" fill="#3AD6C9">Whisper labels</text>
+          <line x1="284" y1="37" x2="306" y2="37" stroke="#3AD6C9" stroke-width="1.4" marker-end="url(#a3)"/>
+          <rect x="308" y="20" width="120" height="34" rx="7" fill="#0f2b2a" stroke="#274a48"/><text x="368" y="42" fill="#3AD6C9">train student</text>
+          <line x1="428" y1="37" x2="450" y2="37" stroke="#3AD6C9" stroke-width="1.4" marker-end="url(#a3)"/>
+          <rect x="452" y="20" width="110" height="34" rx="7" fill="#0f2b2a" stroke="#274a48"/><text x="507" y="42" fill="#3AD6C9">evaluate</text>
+          <line x1="562" y1="37" x2="584" y2="37" stroke="#3AD6C9" stroke-width="1.4" marker-end="url(#a3)"/>
+          <rect x="586" y="20" width="120" height="34" rx="7" fill="#0f2b2a" stroke="#274a48"/><text x="646" y="42" fill="#3AD6C9">int4 export</text>
+          <line x1="706" y1="37" x2="728" y2="37" stroke="#3AD6C9" stroke-width="1.4" marker-end="url(#a3)"/>
+          <rect x="730" y="20" width="150" height="34" rx="7" fill="#0f2b2a" stroke="#274a48"/><text x="805" y="42" fill="#3AD6C9">run on device</text>
+        </g>
+      </svg>
+      <figcaption>Every stage runs &mdash; verified on a Colab T4 (training) and a MacBook (inference).</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- 8 MODEL 1 -->
+<!-- 8 CHART WER -->
 <section class="slide" id="s8">
   <span class="snum"><b>08</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">Model 1 &middot; &le; 10 MB</p>
-    <h2 class="reveal">General recognition &mdash; the budget is the encoder</h2>
-    <p class="lede reveal">Streaming RNN-T transducer + aux CTC. Cache-aware chunked encoding (every frame encoded once). The encoder is 85% of the budget, so encoder choice <i>is</i> the size decision.</p>
-    <div style="overflow-x:auto" class="reveal">
-    <table class="tbl">
-      <thead><tr><th>Config</th><th>Params</th><th>int8</th><th>int4-mixed</th><th>Fits 10 MB?</th></tr></thead>
-      <tbody>
-        <tr><td>Conformer-lite (d=224, 11L)</td><td class="k">10.96 M</td><td class="k">10.96</td><td class="k">6.51</td><td><span class="tag t">yes</span></td></tr>
-        <tr><td>Mamba / SSM (d=256, 14L)</td><td class="k">8.55 M</td><td class="k">8.55</td><td class="k">5.17</td><td><span class="tag t">yes</span></td></tr>
-      </tbody>
-    </table>
-    </div>
-    <p class="note reveal mono" style="font-size:.82rem">int4-mixed = encoder int4 / joiner int8 / decoder fp16. MB, weights.</p>
+    <p class="eyebrow reveal">Metric &middot; accuracy</p>
+    <h2 class="reveal">Word Error Rate by model &mdash; measured</h2>
+    <figure class="reveal">
+      <svg viewBox="0 0 720 300" role="img" aria-label="Word error rate: Whisper teacher 0.05, command model on a TTS clip 0.00, command model on held-out commands 0.20, general model on 2 hours of data 1.00.">
+        <!-- axis 0..1 mapped x 250..680 -->
+        <line x1="250" y1="34" x2="250" y2="256" stroke="#25333F" stroke-width="1"/>
+        <g font-family="IBM Plex Mono,monospace" font-size="10" fill="#63737F" text-anchor="middle">
+          <line x1="250" y1="256" x2="680" y2="256" stroke="#25333F"/>
+          <text x="250" y="272">0.0</text><text x="465" y="272">0.5</text><text x="680" y="272">1.0 WER</text>
+          <line x1="465" y1="34" x2="465" y2="256" stroke="#1B2732"/>
+        </g>
+        <g font-family="IBM Plex Mono,monospace" font-size="12">
+          <!-- rows y: 55,110,165,220 ; bar h 26 ; x0=250 ; scale 430px per 1.0 -->
+          <text x="238" y="72" fill="#9AAAB7" text-anchor="end">Whisper teacher</text>
+          <rect x="250" y="58" width="21.5" height="26" rx="4" fill="#3AD6C9"/><text x="282" y="76" fill="#E9F0F5">0.05</text>
+          <text x="238" y="127" fill="#9AAAB7" text-anchor="end">Model 2 &middot; TTS clip</text>
+          <rect x="250" y="113" width="5" height="26" rx="2.5" fill="#3AD6C9"/><text x="266" y="131" fill="#E9F0F5">0.00</text>
+          <text x="238" y="182" fill="#9AAAB7" text-anchor="end">Model 2 &middot; held-out</text>
+          <rect x="250" y="168" width="86" height="26" rx="4" fill="#3AD6C9"/><text x="346" y="186" fill="#E9F0F5">0.20</text>
+          <text x="238" y="237" fill="#9AAAB7" text-anchor="end">Model 1 &middot; 2h data</text>
+          <rect x="250" y="223" width="430" height="26" rx="4" fill="#E5687A"/><text x="668" y="241" fill="#0B0F14" text-anchor="end" font-weight="600">1.00</text>
+        </g>
+      </svg>
+      <figcaption><b>Teal = works</b>, red = the data wall. Whisper (teacher) and the command model are strong; the general model on only 2h of data learns nothing &mdash; <b>a data problem, not a bug</b> (same code hits WER 0 on synthetic).</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- 9 MODEL 2 -->
+<!-- 9 CHART SIZE -->
 <section class="slide" id="s9">
   <span class="snum"><b>09</b></span>
   <div class="wrap">
-    <p class="eyebrow amber reveal">Model 2 &middot; &le; 5 MB &middot; used wisely</p>
-    <h2 class="reveal">Commands that understand, not just match</h2>
-    <p class="lede reveal">A good command model does spoken-language <i>understanding</i> &mdash; intent + slots &mdash; on the wrist, no cloud NLU.</p>
-    <div class="demo reveal">
-      <div class="dline ok"><span class="who">said</span><span class="said">"set a timer for five minutes"&nbsp; &rarr;&nbsp; { intent: timer, number: five, unit: minutes }</span></div>
-      <div class="dline ok"><span class="who">said</span><span class="said">"call mom"&nbsp; &rarr;&nbsp; { intent: call, contact: mom }</span></div>
-    </div>
-    <p class="note reveal">Head = <b>Conformer-CTC + keyword FST + intent/slot</b>. Add a command by typing text &mdash; no retraining. SLU model &asymp; <b>0.1 MB</b>.</p>
+    <p class="eyebrow reveal">Metric &middot; size</p>
+    <h2 class="reveal">Deployed model size vs budget &mdash; all fit</h2>
+    <figure class="reveal">
+      <svg viewBox="0 0 720 280" role="img" aria-label="int4 deployed sizes: Model 2 command 1.35 MB against a 5 MB budget; Model 1 Mamba 5.17 MB and Conformer 6.51 MB against a 10 MB budget.">
+        <!-- x 0..12MB mapped 250..680 (35.8px/MB) -->
+        <g font-family="IBM Plex Mono,monospace" font-size="10" fill="#63737F" text-anchor="middle">
+          <line x1="250" y1="232" x2="680" y2="232" stroke="#25333F"/>
+          <text x="250" y="248">0</text><text x="429" y="248">5</text><text x="608" y="248">10</text><text x="680" y="248">12 MB</text>
+        </g>
+        <!-- budget markers -->
+        <line x1="429" y1="46" x2="429" y2="232" stroke="#F2A860" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="429" y="40" fill="#F2A860" font-size="10" font-family="IBM Plex Mono,monospace" text-anchor="middle">5 MB budget</text>
+        <line x1="608" y1="46" x2="608" y2="232" stroke="#F2A860" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="608" y="40" fill="#F2A860" font-size="10" font-family="IBM Plex Mono,monospace" text-anchor="middle">10 MB budget</text>
+        <g font-family="IBM Plex Mono,monospace" font-size="12">
+          <!-- rows y 70,125,180 ; scale 35.8px/MB from x250 -->
+          <text x="238" y="88" fill="#9AAAB7" text-anchor="end">Model 2 command</text>
+          <rect x="250" y="74" width="48" height="26" rx="4" fill="#3AD6C9"/><text x="308" y="92" fill="#E9F0F5">1.35</text>
+          <text x="238" y="143" fill="#9AAAB7" text-anchor="end">Model 1 &middot; Mamba</text>
+          <rect x="250" y="129" width="185" height="26" rx="4" fill="#3AD6C9"/><text x="445" y="147" fill="#E9F0F5">5.17</text>
+          <text x="238" y="198" fill="#9AAAB7" text-anchor="end">Model 1 &middot; Conformer</text>
+          <rect x="250" y="184" width="233" height="26" rx="4" fill="#3AD6C9"/><text x="493" y="202" fill="#E9F0F5">6.51</text>
+        </g>
+      </svg>
+      <figcaption>int4-mixed weights. The command model sits at <b>1.35 MB</b> under its 5 MB budget; both general encoders fit under 10 MB &mdash; the Mamba/SSM encoder is the most efficient.</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- 10 TECHNIQUES -->
+<!-- 10 CHART LOSS -->
 <section class="slide" id="s10">
   <span class="snum"><b>10</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">What makes it small AND good</p>
-    <h2 class="reveal">Ranked by impact &mdash; not by novelty</h2>
-    <div style="overflow-x:auto" class="reveal">
-    <table class="tbl">
-      <thead><tr><th>#</th><th>Technique</th><th>Why it matters</th><th>Lever</th></tr></thead>
-      <tbody>
-        <tr><td class="k">1</td><td><b>Distillation from a large teacher</b></td><td>10&times; smaller student within ~1 WER of the teacher</td><td><span class="tag t">huge</span></td></tr>
-        <tr><td class="k">2</td><td><b>SSL pretrain (BEST-RQ)</b></td><td>Tiny model punches above its weight; adapts to wrist mic</td><td><span class="tag t">high</span></td></tr>
-        <tr><td class="k">3</td><td><b>int4 QAT</b></td><td>Halves encoder MB at ~1% WER &mdash; hits the budget</td><td><span class="tag t">high</span></td></tr>
-        <tr><td class="k">4</td><td><b>Elastic / Matryoshka width</b></td><td>One net, battery-adaptive quality</td><td><span class="tag a">med</span></td></tr>
-        <tr><td class="k">5</td><td><b>Low-rank vocab projection</b></td><td>Kills the joiner tax (paid twice)</td><td><span class="tag">small</span></td></tr>
-      </tbody>
-    </table>
-    </div>
+    <p class="eyebrow red reveal">Metric &middot; the data wall</p>
+    <h2 class="reveal">General model on 2h: loss stalls &mdash; why we need scale</h2>
+    <figure class="reveal">
+      <svg viewBox="0 0 720 300" role="img" aria-label="Training loss of the general model on 2 hours of data drops from about 1440 to about 180 by step 125, then plateaus and oscillates around 180 through step 1500 instead of continuing down.">
+        <!-- plot x 70..680 (steps 0..1500), y 40..250 (loss 0..1500 inverted) -->
+        <g font-family="IBM Plex Mono,monospace" font-size="10" fill="#63737F">
+          <line x1="70" y1="250" x2="680" y2="250" stroke="#25333F"/>
+          <line x1="70" y1="40" x2="70" y2="250" stroke="#25333F"/>
+          <line x1="70" y1="180" x2="680" y2="180" stroke="#1B2732"/><text x="60" y="184" text-anchor="end">500</text>
+          <line x1="70" y1="110" x2="680" y2="110" stroke="#1B2732"/><text x="60" y="114" text-anchor="end">1000</text>
+          <text x="60" y="44" text-anchor="end">1500</text><text x="60" y="254" text-anchor="end">0</text>
+          <text x="70" y="268" text-anchor="middle">0</text><text x="273" y="268" text-anchor="middle">500</text><text x="477" y="268" text-anchor="middle">1000</text><text x="680" y="268" text-anchor="middle">1500 steps</text>
+          <text x="30" y="150" text-anchor="middle" transform="rotate(-90 30 150)" fill="#9AAAB7">RNN-T loss</text>
+        </g>
+        <!-- plateau band -->
+        <rect x="115" y="216" width="565" height="26" fill="#E5687A" opacity=".08"/>
+        <text x="675" y="212" fill="#E5687A" font-size="10.5" font-family="IBM Plex Mono,monospace" text-anchor="end">stuck ~180 &mdash; the data wall</text>
+        <!-- curve -->
+        <polyline points="70,49 79,154 88,184 97,194 106,214 115,228 124,226 142,218 178,223 273,223 340,228 430,223 520,229 680,225"
+          fill="none" stroke="#E5687A" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="70" cy="49" r="3" fill="#E5687A"/><text x="80" y="46" fill="#9AAAB7" font-size="10" font-family="IBM Plex Mono,monospace">1437</text>
+      </svg>
+      <figcaption>The loss drops (the mechanics work) then <b>plateaus at ~180</b> &mdash; the model learns only silence. On the command task the same pipeline converged to <b>0.02</b>. General ASR from scratch needs ~100&times; more data; that is the roadmap, not a bug.</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- 11 DISTILLATION -->
+<!-- 11 COMMAND MODEL ACHIEVEMENT -->
 <section class="slide" id="s11">
   <span class="snum"><b>11</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">The accuracy engine</p>
-    <h2 class="reveal">One teacher &rarr; two on-device siblings</h2>
-    <div class="flow reveal" style="gap:0">
-      <div class="stage" style="border-color:#4a3a22"><div class="head"><div><div class="t">Whisper-large / Parakeet-0.6B</div><div class="s">teacher &middot; labels data + soft targets</div></div><span class="pill on">GPU, offline</span></div></div>
-      <div class="connector"><span class="lbl">distil &darr;</span></div>
-      <div class="grid g2" style="margin-top:0">
-        <div class="stage hex"><div class="t teal">Model 1 &middot; transducer</div><div class="s">general NLR &middot; int4-QAT</div></div>
-        <div class="stage hex"><div class="t teal">Model 2 &middot; CTC + SLU</div><div class="s">commands &middot; always-on</div></div>
-      </div>
+    <div class="verified reveal">Verified &middot; live on a Mac</div>
+    <p class="eyebrow reveal">The achievement</p>
+    <h2 class="reveal">A working command recognizer &mdash; end to end</h2>
+    <div class="cols3">
+      <div class="block reveal"><div class="ic">Accuracy</div><h3 class="teal" style="font-size:1.5rem">0.20 WER</h3><p>80% words / 87% chars on <b>unseen</b> commands. 0.00 on in-domain TTS clips.</p></div>
+      <div class="block reveal"><div class="ic">Size</div><h3 class="teal" style="font-size:1.5rem">2.55 MB</h3><p>int8 deployed (1.35 MB int4 target). 2.36M params.</p></div>
+      <div class="block reveal"><div class="ic">Speed</div><h3 class="teal" style="font-size:1.5rem">~15 min</h3><p>to train on a free T4. Runs live on a MacBook CPU.</p></div>
     </div>
-    <p class="note teal reveal">Whisper never ships. It runs once on a GPU to <b>label your audio</b> and supervise the students. Delete it after training.</p>
+    <p class="note reveal"><b>Proven loop:</b> real command speech &rarr; training &rarr; recognition &rarr; a 2.55 MB on-device model transcribing <span class="mono">"set a timer for ten minutes"</span> correctly.</p>
   </div>
 </section>
 
-<!-- 12 POC INTRO -->
+<!-- 12 BUGS -->
 <section class="slide" id="s12">
   <span class="snum"><b>12</b></span>
   <div class="wrap">
-    <div class="verified reveal">Proof of concept &middot; built &amp; measured</div>
-    <h2 class="reveal">We didn't just design it &mdash; we built it and ran it</h2>
-    <p class="lede reveal">A complete, runnable pipeline: <span class="mono">data &rarr; teacher labels &rarr; train student &rarr; evaluate &rarr; quantize &rarr; on-device inference.</span> Everything on the next slides is a real, measured result.</p>
-    <div class="stats reveal">
-      <div class="stat"><div class="v">~90</div><div class="l">files, full pipeline, tests green</div></div>
-      <div class="stat"><div class="v a">Whisper</div><div class="l">real teacher wired in</div></div>
-      <div class="stat"><div class="v">Colab T4</div><div class="l">GPU training runs</div></div>
-      <div class="stat"><div class="v a">Mac</div><div class="l">live on-device inference</div></div>
+    <p class="eyebrow reveal">Engineering rigor</p>
+    <h2 class="reveal">Real bugs, found and fixed &mdash; not a slideware demo</h2>
+    <div class="rows reveal">
+      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>Tokenizer/label mismatch</b> &mdash; Whisper's punctuation became "unknown" tokens; targets were unlearnable. Fixed with text normalization + matched tokenizer.</span></div>
+      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>Missing LR warmup</b> &mdash; the transducer loss oscillated on long utterances. Added warmup + cosine decay.</span></div>
+      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>GPU RNN-T length mismatch</b> &mdash; the CUDA kernel rejected approximate encoder lengths. Computed the exact subsampled length.</span></div>
+      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>FLAC loading + <span class="mono">--init</span> fine-tuning</b> &mdash; real-audio loaders and warm-start for on-device personalization.</span></div>
     </div>
   </div>
 </section>
 
-<!-- 13 POC TEACHER -->
+<!-- 13 PERSONALIZATION -->
 <section class="slide" id="s13">
   <span class="snum"><b>13</b></span>
   <div class="wrap">
-    <div class="verified reveal">Result &middot; verified</div>
-    <p class="eyebrow reveal">Proof 1 &mdash; the teacher works on real speech</p>
-    <h2 class="reveal">Whisper labels real audio at <span class="teal">5% WER</span></h2>
-    <p class="lede reveal">On real LibriSpeech held-out audio, our wired-in Whisper teacher transcribes at <b class="teal">WER 0.05</b> &mdash; clean, reliable labels to distil from. The labeling pipeline (audio &rarr; normalized transcripts) is proven end to end.</p>
-    <div class="demo reveal">
-      <div class="dline ok"><span class="who">audio</span><span class="said">real human speech &rarr; "nestorius who depended on the near approach of his eastern friends&hellip;"</span></div>
+    <p class="eyebrow reveal">Personalization</p>
+    <h2 class="reveal">Adapt to a real voice with a handful of clips</h2>
+    <p class="lede reveal">A TTS-trained model garbles a real voice (synthetic&rarr;real gap). Few-shot fine-tuning fixes it: record ~40 clips of your voice, warm-start from the existing model (<span class="mono">--init</span>), and it recognizes you &mdash; on the Mac, in minutes.</p>
+    <div class="cols" style="margin-top:16px">
+      <div class="block reveal" style="border-color:#4a2530"><div class="ic">Before</div><p class="mono" style="color:var(--red)">your voice &rarr; "set a the me tos"</p><p style="margin-top:6px">never heard a human</p></div>
+      <div class="block reveal" style="border-color:#274a48"><div class="ic">After fine-tune</div><p class="mono" style="color:var(--teal)">your voice &rarr; recognized</p><p style="margin-top:6px">tooling in the repo today</p></div>
     </div>
-    <p class="note teal reveal">This is the hardest external dependency, and it's <b>working</b>. Every downstream student learns from these labels.</p>
   </div>
 </section>
 
-<!-- 14 POC COMMAND MODEL -->
+<!-- 14 ROADMAP -->
 <section class="slide" id="s14">
   <span class="snum"><b>14</b></span>
   <div class="wrap">
-    <div class="verified reveal">Result &middot; verified &middot; live on a Mac</div>
-    <p class="eyebrow reveal">Proof 2 &mdash; a working, tiny recognizer</p>
-    <h2 class="reveal">We trained Model 2 &mdash; it transcribes, at <span class="teal">2.55 MB</span></h2>
-    <div class="stats reveal">
-      <div class="stat"><div class="v">0.20</div><div class="l">WER on unseen commands (80% words)</div></div>
-      <div class="stat"><div class="v a">2.55<span style="font-size:.9rem"> MB</span></div><div class="l">int8 deployed (1.35 MB int4 target)</div></div>
-      <div class="stat"><div class="v">2.36 M</div><div class="l">params &middot; char tokenizer</div></div>
-      <div class="stat"><div class="v a">~15<span style="font-size:.9rem"> min</span></div><div class="l">to train on a free T4</div></div>
+    <p class="eyebrow amber reveal">How we get to the 10 MB general model</p>
+    <h2 class="reveal">From proven pipeline to shipped product</h2>
+    <div class="rows reveal">
+      <div class="row"><span class="rn">01</span><span class="rt"><b>Data</b> &mdash; commercial: Loquacious (25k h) + wrist recordings; research: SLURP / Speech Commands for real command voices.</span></div>
+      <div class="row"><span class="rn">02</span><span class="rt"><b>Label + distil</b> &mdash; Whisper/Parakeet pseudo-labels &rarr; train the Zipformer transducer student (the pipeline already runs).</span></div>
+      <div class="row"><span class="rn">03</span><span class="rt"><b>Compress</b> &mdash; int4 QAT + structured pruning &rarr; &le; 10 MB, deployable ops.</span></div>
+      <div class="row"><span class="rn">04</span><span class="rt"><b>Personalize + deploy</b> &mdash; on-device fine-tune (prototyped) &rarr; 3-graph ONNX &rarr; QNN context binary for the Hexagon.</span></div>
     </div>
-    <div class="demo reveal">
-      <div class="dline ok"><span class="who">your model</span><span class="said">heard: 'set a timer for ten minutes' &nbsp;&check;</span></div>
-    </div>
-    <p class="note teal reveal">Ran <b>live on a MacBook</b> from the 9 MB checkpoint &mdash; the full loop (real speech &rarr; training &rarr; recognition &rarr; 2.55 MB model) is proven.</p>
+    <p class="note red reveal"><b>Licensing note:</b> GigaSpeech &amp; SLURP are non-commercial &mdash; use Loquacious for a product; clear all licenses with legal.</p>
   </div>
 </section>
 
-<!-- 15 POC JOURNEY -->
+<!-- 15 CLOSE + REFS -->
 <section class="slide" id="s15">
   <span class="snum"><b>15</b></span>
   <div class="wrap">
-    <p class="eyebrow reveal">Proof 3 &mdash; engineering rigor</p>
-    <h2 class="reveal">Real bugs found and fixed &mdash; this is a working system</h2>
-    <div class="rows reveal">
-      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>Tokenizer/label mismatch.</b> Whisper's punctuation became "unknown" tokens &mdash; targets were unlearnable. Fixed with text normalization + tokenizer trained on the same text.</span></div>
-      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>Missing LR warmup.</b> The transducer loss oscillated and never converged on long utterances. Added warmup + cosine decay.</span></div>
-      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>GPU RNN-T length mismatch.</b> Encoder lengths were approximate; the CUDA kernel rejected them. Computed the exact subsampled length.</span></div>
-      <div class="row fix"><span class="rn">&check;</span><span class="rt"><b>FLAC loading + fine-tune warm-start.</b> Added real-audio loaders and <span class="mono">--init</span> so models can be personalized.</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 16 POC HONEST WALL -->
-<section class="slide" id="s16">
-  <span class="snum"><b>16</b></span>
-  <div class="wrap">
-    <p class="eyebrow red reveal">The honest finding</p>
-    <h2 class="reveal">General ASR needs data &mdash; and we proved that too</h2>
-    <p class="lede reveal">We trained the 10 MB general model on a <b>2-hour</b> subset. It scored <b class="red">WER 1.0</b> &mdash; it learned only silence. The CTC head stayed near random (5.6 &asymp; log&nbsp;of&nbsp;the&nbsp;vocab).</p>
-    <div class="demo reveal">
-      <div class="dline bad"><span class="who">2h data</span><span class="said">general model &rarr; '' &nbsp;(emits nothing &mdash; the data wall)</span></div>
-      <div class="dline ok"><span class="who">same code</span><span class="said">synthetic data &rarr; WER 0.00 &nbsp;&middot;&nbsp; commands &rarr; WER 0.20</span></div>
-    </div>
-    <p class="note reveal"><b>Why this matters:</b> it's not a bug &mdash; the machinery is correct (WER 0 on synthetic; Whisper 0.05 on the same audio). General ASR from scratch needs <b>~100&times; more data</b>. That defines exactly what "how we get there" requires.</p>
-  </div>
-</section>
-
-<!-- 17 POC PERSONALIZATION -->
-<section class="slide" id="s17">
-  <span class="snum"><b>17</b></span>
-  <div class="wrap">
-    <div class="verified reveal">Built &middot; on-device</div>
-    <p class="eyebrow reveal">Proof 4 &mdash; personalization</p>
-    <h2 class="reveal">Adapt to a real voice with a handful of recordings</h2>
-    <p class="lede reveal">The TTS-trained model garbles a real voice (synthetic&rarr;real gap). The fix is few-shot: record ~40 clips of your own voice, <b>fine-tune from the existing model</b> (<span class="mono">--init</span>), and it recognizes you &mdash; all on the Mac, in minutes.</p>
-    <div class="demo reveal">
-      <div class="dline bad"><span class="who">before</span><span class="said">your voice &rarr; 'set a the me tos' &nbsp;(never heard a human)</span></div>
-      <div class="dline ok"><span class="who">after fine-tune</span><span class="said">your voice &rarr; recognized &nbsp;(personalized)</span></div>
-    </div>
-    <p class="note teal reveal">On-device personalization is a real product feature &mdash; and the tooling exists in the repo (<span class="mono">record_commands.py</span> + <span class="mono">--init</span>).</p>
-  </div>
-</section>
-
-<!-- 18 RESULTS TABLE -->
-<section class="slide" id="s18">
-  <span class="snum"><b>18</b></span>
-  <div class="wrap">
-    <p class="eyebrow reveal">Everything we measured</p>
-    <h2 class="reveal">The numbers, in one place</h2>
-    <div style="overflow-x:auto" class="reveal">
-    <table class="tbl">
-      <thead><tr><th>What</th><th>Result</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>Whisper teacher (real speech)</td><td class="k">WER 0.05</td><td><span class="tag t">verified</span></td></tr>
-        <tr><td>Command model &mdash; held-out</td><td class="k">WER 0.20 / CER 0.13</td><td><span class="tag t">verified</span></td></tr>
-        <tr><td>Command model &mdash; deployed</td><td class="k">2.55 MB int8</td><td><span class="tag t">verified</span></td></tr>
-        <tr><td>Command model &mdash; TTS clip</td><td class="k">WER 0.00</td><td><span class="tag t">verified</span></td></tr>
-        <tr><td>Model 1 budget (Mamba)</td><td class="k">5.17 MB int4</td><td><span class="tag t">verified</span></td></tr>
-        <tr><td>Deployable ops (Conformer)</td><td class="k">100% standard</td><td><span class="tag t">verified</span></td></tr>
-        <tr><td>General model on 2h data</td><td class="k">WER 1.0</td><td><span class="tag r">data wall</span></td></tr>
-        <tr><td>Real-voice general accuracy</td><td class="k">&mdash;</td><td><span class="tag a">needs data</span></td></tr>
-      </tbody>
-    </table>
-    </div>
-    <p class="note reveal">Verified = measured on this project. The gaps are <b>data + scale</b>, not correctness &mdash; the pipeline works; it needs feeding.</p>
-  </div>
-</section>
-
-<!-- 19 PAPERS -->
-<section class="slide" id="s19">
-  <span class="snum"><b>19</b></span>
-  <div class="wrap">
-    <p class="eyebrow reveal">Grounding</p>
-    <h2 class="reveal">Research foundations</h2>
-    <div class="refs reveal">
-      <div class="h">Acoustic models &amp; losses</div>
-      <div>CTC &mdash; Graves 2006</div><div>RNN-T &mdash; Graves 2012 <span>(1211.3711)</span></div>
-      <div>Conformer &mdash; Gulati 2020 <span>(2005.08100)</span></div><div>Zipformer &mdash; Yao, ICLR 2024 <span>(2310.11230)</span></div>
-      <div>Stateless predictor &mdash; Ghodsi 2020</div><div>Pruned RNN-T &mdash; Kuang 2022</div>
-      <div class="h">2024&ndash;26 frontier</div>
-      <div>Samba-ASR <span>(2501.02832)</span></div><div>Mamba streaming ASR <span>(2410.00070)</span></div>
-      <div>MoME &mdash; NeurIPS 2025</div><div>Dynamic Encoder Size <span>(2407.18930)</span></div>
-      <div>On-device int4 &mdash; MS <span>(2604.14493)</span></div><div>HyperSpotter KWS <span>(2508.04857)</span></div>
-      <div class="h">Distillation &amp; data</div>
-      <div>KD for transducers <span>(2110.03334)</span></div><div>Whisper-KD streaming <span>(2409.13499)</span></div>
-      <div>BEARD / BEST-RQ <span>(2510.24570)</span></div><div>SLURP &mdash; SLU dataset <span>(2011.13205)</span></div>
-      <div>Whisper &mdash; Radford 2022</div><div>Distillation &mdash; Hinton 2015 <span>(1503.02531)</span></div>
-    </div>
-    <p class="note reveal mono" style="font-size:.78rem">Foundations are solid; recent arXiv ids should be verified before external citation.</p>
-  </div>
-</section>
-
-<!-- 20 ROADMAP -->
-<section class="slide" id="s20">
-  <span class="snum"><b>20</b></span>
-  <div class="wrap">
-    <p class="eyebrow amber reveal">How we get there</p>
-    <h2 class="reveal">From proven pipeline to shipped model</h2>
-    <div class="rows reveal">
-      <div class="row"><span class="rn">01</span><span class="rt"><b>Data.</b> Commercial: Loquacious (25k h) + wrist recordings. Research: SLURP / Speech Commands for real command voices.</span></div>
-      <div class="row"><span class="rn">02</span><span class="rt"><b>Label + distil.</b> Whisper-large / Parakeet pseudo-labels &rarr; train the Zipformer transducer student (the pipeline already runs).</span></div>
-      <div class="row"><span class="rn">03</span><span class="rt"><b>Compress.</b> int4 QAT + structured pruning &rarr; &le; 10 MB, deployable ops.</span></div>
-      <div class="row"><span class="rn">04</span><span class="rt"><b>Personalize.</b> On-device fine-tune on the user's voice (already prototyped).</span></div>
-      <div class="row"><span class="rn">05</span><span class="rt"><b>Deploy.</b> 3-graph static ONNX &rarr; QNN context binary for the Wear-Elite Hexagon.</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 21 RISKS -->
-<section class="slide" id="s21">
-  <span class="snum"><b>21</b></span>
-  <div class="wrap">
-    <p class="eyebrow red reveal">Owned risks</p>
-    <h2 class="reveal">What we'd watch &mdash; stated plainly</h2>
-    <div class="rows reveal">
-      <div class="row risk"><span class="rn">!</span><span class="rt"><b>Data quantity.</b> General ASR needs 100s of hours; we proved the wall. Mitigation: the distillation + big-corpus plan.</span></div>
-      <div class="row risk"><span class="rn">!</span><span class="rt"><b>Mamba not on the NPU yet.</b> Selective-scan has no QNN kernel &mdash; ship Conformer/Zipformer, keep Mamba as research.</span></div>
-      <div class="row risk"><span class="rn">!</span><span class="rt"><b>Dataset licensing.</b> GigaSpeech &amp; SLURP are non-commercial. Use Loquacious for product; clear licenses with legal.</span></div>
-      <div class="row risk"><span class="rn">!</span><span class="rt"><b>Evaluate on real wrist audio</b>, not LibriSpeech, before any accuracy claim.</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 22 CLOSE -->
-<section class="slide close" id="s22">
-  <span class="snum"><b>22</b></span>
-  <div class="wrap">
     <p class="eyebrow reveal">The bottom line</p>
-    <h2 class="reveal">The pipeline works. We shipped a 2.55 MB recognizer. The rest is data + scale.</h2>
-    <div class="title-meta reveal">
-      <span class="chip"><span class="dot"></span>Whisper teacher &middot; 0.05 WER</span>
-      <span class="chip"><span class="dot amber"></span>Command model &middot; works, 2.55 MB</span>
-      <span class="chip"><span class="dot"></span>Roadmap &middot; distil &rarr; int4 &rarr; deploy</span>
+    <h2 class="reveal">The pipeline works. We built a 2.55 MB recognizer. The rest is data + scale.</h2>
+    <div class="chips reveal">
+      <span class="chip"><span class="dot a"></span>Whisper teacher &middot; 0.05 WER</span>
+      <span class="chip"><span class="dot"></span>Command model &middot; 0.20 WER, 2.55 MB, live</span>
+      <span class="chip"><span class="dot"></span>Model 1 budget &middot; 5.17 MB int4</span>
     </div>
-    <p class="repo reveal" style="margin-top:28px">Full code, report &amp; notebooks &middot; github.com/<a href="https://github.com/codejawk/ASR">codejawk/ASR</a></p>
+    <p class="reveal" style="margin-top:22px;font-family:var(--mono);font-size:.72rem;color:var(--dim);line-height:1.9">
+      Foundations: RNN-T (Graves 2012) &middot; Conformer (Gulati 2020) &middot; Zipformer (Yao, ICLR 2024) &middot; Distillation (Hinton 2015) &middot; QAT (Jacob 2018)<br>
+      Frontier: Samba-ASR (2501.02832) &middot; MoME NeurIPS 2025 &middot; on-device int4 (2604.14493) &middot; KD-transducer (2110.03334) &middot; Whisper-KD (2409.13499) &middot; SLURP (2011.13205)
+    </p>
+    <p class="repo reveal" style="margin-top:20px">Full code, report &amp; notebooks &middot; github.com/<a href="https://github.com/codejawk/ASR">codejawk/ASR</a></p>
   </div>
 </section>
 
@@ -567,21 +492,17 @@
   var slides=[].slice.call(document.querySelectorAll('.slide'));
   var rail=document.getElementById('rail'), prog=document.getElementById('prog');
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  slides.forEach(function(s,i){
-    var b=document.createElement('button'); b.setAttribute('aria-label','Slide '+(i+1));
-    b.addEventListener('click',function(){go(i)}); rail.appendChild(b);
-  });
+  slides.forEach(function(s,i){var b=document.createElement('button');b.setAttribute('aria-label','Slide '+(i+1));b.addEventListener('click',function(){go(i)});rail.appendChild(b);});
   var dots=[].slice.call(rail.children), current=0;
-  function go(i){ i=Math.max(0,Math.min(slides.length-1,i)); slides[i].scrollIntoView({behavior:reduce?'auto':'smooth'}); }
-  function setCur(i){ if(i===current)return; current=i; dots.forEach(function(d,j){d.setAttribute('aria-current',j===i?'true':'false')}); }
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in'); setCur(slides.indexOf(e.target));} })},{threshold:0.55});
-  slides.forEach(function(s){io.observe(s)}); slides[0].classList.add('in');
+  function go(i){i=Math.max(0,Math.min(slides.length-1,i));slides[i].scrollIntoView({behavior:reduce?'auto':'smooth'});}
+  function setCur(i){if(i===current)return;current=i;dots.forEach(function(d,j){d.setAttribute('aria-current',j===i?'true':'false')});}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');setCur(slides.indexOf(e.target));}})},{threshold:0.5});
+  slides.forEach(function(s){io.observe(s)});slides[0].classList.add('in');
   addEventListener('keydown',function(e){
     if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(current+1);}
     else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();go(current-1);}
-    else if(e.key==='Home'){e.preventDefault();go(0);} else if(e.key==='End'){e.preventDefault();go(slides.length-1);}
-  });
-  addEventListener('scroll',function(){ var h=document.body.scrollHeight-innerHeight; prog.style.width=(h>0?(scrollY/h*100):0)+'%'; },{passive:true});
+    else if(e.key==='Home'){e.preventDefault();go(0);}else if(e.key==='End'){e.preventDefault();go(slides.length-1);}});
+  addEventListener('scroll',function(){var h=document.body.scrollHeight-innerHeight;prog.style.width=(h>0?(scrollY/h*100):0)+'%';},{passive:true});
   dots[0].setAttribute('aria-current','true');
 })();
 </script>
